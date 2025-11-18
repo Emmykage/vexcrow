@@ -147,7 +147,6 @@ export default function MoneyTransferFlow({ setIsfundTransferOpen }) {
                 value={formData?.description}
                 onChange={handleChange}
                 onBlur={fetchAccountName}
-                maxLength="10"
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 mt-1 text-gray-100 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Narrative"
               />
