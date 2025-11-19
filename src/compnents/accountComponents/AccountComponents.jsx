@@ -52,7 +52,6 @@ const AccountNumbers = ({ accounts, generate, onView }) => {
                   className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:shadow-xl hover:border-gray-700 transition bg-gradient-to-b from-gray-900 to-transparent text-center  py-2 sl"
                 >
                   <h3 className="text-gray-300   font-medium text-lg mb-2">
-                    {/* {i === 0 ? 'MoniePoint' : 'Anchor'} */}
                     {getAccountName(accounts[i]?.vendor)}
                   </h3>
 
