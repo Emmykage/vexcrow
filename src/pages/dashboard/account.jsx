@@ -97,8 +97,7 @@ const Account = () => {
           <div className="flex bg-black text-gray-100 p-10 rounded justify-between">
             <div className="">
               <h4 className="text-xl font-semibold text-gray-500">Naira Wallet</h4>
-              <p className="text-4xl font-medium">NGN {convertedAmount?.calc}</p>
-              <p className="my-2 text-2xl font-medium">{nairaFormat(wallet?.balance, 'ngn')}</p>
+              <p className="my-2 text-4xl font-medium">{nairaFormat(wallet?.balance, 'ngn')}</p>
             </div>
 
             {/* <div className="">
@@ -264,32 +263,86 @@ const Account = () => {
 
 const TransactionComp = ({ setIsModalOpen, setIsWithdrawalModalOpen, setIsfundTransferOpen }) => {
   const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState('add')
+
   return (
-    <div className="text-white flex justify-between bg--100 px-6">
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="flex text-purple-300 hover:text-alt cursor-pointer flex-col items-center justify-center"
-      >
-        <WalletOutlined />
-        <span className="text-center">Add Funds</span>
-      </button>
-      <button
-        onClick={() => navigate('/dashboard/virtual-account')}
-        className="flex text-purple-300 hover:text-alt cursor-pointer flex-col items-center justify-center"
-      >
-        <RiUserReceived2Line />
-        <NavLink className="text-center">Virtual Card</NavLink>
-      </button>
-      <button
-        onClick={() => setIsfundTransferOpen((prev) => !prev)}
-        className="flex text-purple-300 hover:text-alt cursor-pointer flex-col items-center justify-center"
-      >
-        <TransactionOutlined />
-        <span className="text-center">Transfer Funds</span>
-      </button>
-    </div>
+    <>
+      <div className="text-gray-900 gap-4 flex justify-between ">
+        {/* <div className="flex gap-3 mb-6"> */}
+        <button
+          // onClick={() => setActiveTab('add')}
+          onClick={() => navigate('/dashboard/virtual-account')}
+          className={`px-4 py-2 rounded-lg font-medium transition
+            ${activeTab === 'add' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+        >
+          Add Funds
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveTab('wallet')
+            navigate('/dashboard/virtual-account')
+          }}
+          className={`px-4 py-2 rounded-lg font-medium transition
+            ${activeTab === 'wallet' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+        >
+          Virtual Card
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveTab('transfer')
+            setIsfundTransferOpen((prev) => !prev)
+          }}
+          className={`px-4 py-2 rounded-lg font-medium transition
+            ${activeTab === 'transfer' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+        >
+          Transfer Funds
+        </button>
+      </div>
+
+      {/* CONTENT COMPONENTS */}
+      {/* <div className="p-6 rounded-xl border bg-white shadow">
+          {activeTab === 'add' && <AddFunds />}
+          {activeTab === 'wallet' && <Wallet />}
+          {activeTab === 'transfer' && <TransferFunds />}
+        </div> */}
+      {/* </div> */}
+
+      {/* <button
+          onClick={() => setIsModalOpen(true)}
+          className="flex text-purple-300 hover:text-alt cursor-pointer flex-col items-center justify-center"
+        >
+          <WalletOutlined />
+          <span className="text-center">Add Funds</span>
+        </button>
+        <button className="flex text-purple-300 hover:text-alt cursor-pointer flex-col items-center justify-center">
+          <RiUserReceived2Line />
+          <NavLink className="text-center">Virtual Card</NavLink>
+        </button>
+        <button
+          onClick={() => setIsfundTransferOpen((prev) => !prev)}
+          className="flex text-purple-300 hover:text-alt cursor-pointer flex-col items-center justify-center"
+        >
+          <TransactionOutlined />
+          <span className="text-center">Transfer Funds</span>
+        </button> */}
+      {/* </div> */}
+    </>
   )
 }
+
+// function AddFunds() {
+//   return <div className="text-gray-700">🔹 Add Funds Component</div>
+// }
+
+// function Wallet() {
+//   return <div className="text-gray-700">💼 Wallet Component</div>
+// }
+
+// function TransferFunds() {
+//   return <div className="text-gray-700">🔁 Transfer Funds Component</div>
+// }
 TransactionComp.propTypes = {
   setIsModalOpen: PropTypes.func,
   setIsWithdrawalModalOpen: PropTypes.func,

@@ -28,7 +28,7 @@ const AccountNumbers = ({ accounts, generate, onView }) => {
   console.log(accounts)
 
   return (
-    <div className="max-w-2x flex justify-between w-full bg-black my-4 rounded-2xl shadow-lg p-8">
+    <div className="w-full mx-auto space-y-6 max-w-2x flex justify-between bg-black my-4 rounded-2xl shadow-lg p-8">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 mb-8">
           {/* Savings Account */}
@@ -49,7 +49,7 @@ const AccountNumbers = ({ accounts, generate, onView }) => {
               return (
                 <div
                   key={i}
-                  className="border border-gray-200 bg-gradient-to-b from-gray-900 to-transparent text-center rounded-xl py-2 shadow-sm hover:shadow-md transition-all"
+                  className="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:shadow-xl hover:border-gray-700 transition bg-gradient-to-b from-gray-900 to-transparent text-center  py-2 sl"
                 >
                   <h3 className="text-gray-300   font-medium text-lg mb-2">
                     {/* {i === 0 ? 'MoniePoint' : 'Anchor'} */}

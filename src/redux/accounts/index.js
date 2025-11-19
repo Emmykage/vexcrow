@@ -2,10 +2,13 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import {
   createCard,
+  get_card_balance,
   getAccounts,
   getBankList,
+  getRates,
   getUserAccount,
   getUserCard,
+  getUserCards,
   registerCardHolder,
 } from '../actions/account'
 
@@ -16,6 +19,10 @@ const initialState = {
   banks: [],
   message: '',
   card: null,
+  cards: [],
+  cardHolder: null,
+  rates: null,
+  balanceData: null,
 }
 
 const AccountSlice = createSlice({
@@ -141,6 +148,28 @@ const AccountSlice = createSlice({
         }
       })
 
+      .addCase(getUserCards.fulfilled, (state, action) => {
+        return {
+          ...state,
+          cards: action.payload,
+          loading: false,
+        }
+      })
+      .addCase(getUserCards.rejected, (state, action) => {
+        return {
+          ...state,
+          message: action.payload?.message,
+
+          loading: false,
+        }
+      })
+      .addCase(getUserCards.pending, (state) => {
+        return {
+          ...state,
+          loading: true,
+        }
+      })
+
       .addCase(createCard.fulfilled, (state, action) => {
         return {
           ...state,
@@ -160,6 +189,35 @@ const AccountSlice = createSlice({
         return {
           ...state,
           loading: true,
+        }
+      })
+
+      .addCase(getRates.fulfilled, (state, action) => {
+        return {
+          ...state,
+          rates: action.payload.data,
+          loading: false,
+        }
+      })
+      .addCase(getRates.rejected, (state, action) => {
+        return {
+          ...state,
+          message: action.payload?.message,
+          loading: false,
+        }
+      })
+      .addCase(getRates.pending, (state) => {
+        return {
+          ...state,
+          loading: true,
+        }
+      })
+
+      .addCase(get_card_balance.fulfilled, (state, action) => {
+        return {
+          ...state,
+          balanceData: action.payload.data,
+          loading: false,
         }
       })
   },
