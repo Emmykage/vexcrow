@@ -271,7 +271,7 @@ const TransactionComp = ({ setIsModalOpen, setIsWithdrawalModalOpen, setIsfundTr
         {/* <div className="flex gap-3 mb-6"> */}
         <button
           // onClick={() => setActiveTab('add')}
-          onClick={() => navigate('/dashboard/virtual-account')}
+          onClick={() => setIsModalOpen(true)}
           className={`px-4 py-2 rounded-lg font-medium transition
             ${activeTab === 'add' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
         >
