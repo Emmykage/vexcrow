@@ -24,14 +24,13 @@ export default function VirtualCardApplication() {
   } = useSelector((state) => state.wallet)
   const { cardHolder, cards, loading: isLoading } = useSelector((state) => state.account)
   const [card, setCard] = useState()
-  console.log(balance)
 
   const [cardType, setCardType] = useState('virtual') // 'virtual' or 'physical'
   const [formData, setFormData] = useState({
-    first_name: '',
-    last_name: '',
-    phone: '',
-    email_address: '',
+    first_name: user?.user_profile?.first_name ?? '',
+    last_name: user?.user_profile?.last_name ?? '',
+    phone: user?.user_profile?.phone_number ?? '',
+    email_address: user?.email ?? '',
     address: '',
     city: '',
     state: '',
@@ -158,6 +157,8 @@ export default function VirtualCardApplication() {
     )
       .unwrap()
       .then((res) => {
+        setStep('create')
+
         setSuccess({ ok: true, message: `Application submitted for a ${cardType} card.` })
       })
       .catch((err) => {
@@ -175,6 +176,8 @@ export default function VirtualCardApplication() {
   const [step, setStep] = useState('apply')
 
   useEffect(() => {
+    setStep('create')
+
     if (card_holder) {
       setStep('create')
     } else {

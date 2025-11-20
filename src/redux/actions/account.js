@@ -285,7 +285,7 @@ export const createCard = createAsyncThunk(
   'account/create-card-account',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl + apiRoute}cards/create_card`, data, {
+      const response = await axios.post(`${baseUrl + apiRoute}card_holders/create_card`, data, {
         headers: {
           Authorization: `Bearer ${fetchToken()}`,
         },
