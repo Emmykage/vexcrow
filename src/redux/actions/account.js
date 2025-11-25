@@ -499,3 +499,35 @@ export const get_card_balance = createAsyncThunk(
     }
   }
 )
+
+export const freezeAccount = createAsyncThunk(
+  'account/FREEZE_ACCOUNT',
+  async (data, { rejectWithValue }) => {
+    console.log(fetchToken())
+    try {
+      const response = await axios.post(`${baseUrl + apiRoute}accounts/freeze_account`, data, {
+        headers: {
+          Authorization: `Bearer ${fetchToken()}`,
+        },
+      })
+
+      const result = response.data
+
+      console.log(result)
+
+      return result
+    } catch (error) {
+      console.log(error)
+
+      if (error.response && error.response.data) {
+        console.log(error.message)
+        toast(error.response.data.message ?? error.message ?? 'SOmething went wrong', {
+          type: 'error',
+        })
+        return rejectWithValue({ message: error.message })
+      }
+      console.error(error)
+      return rejectWithValue({ message: 'Something went wrong' })
+    }
+  }
+)

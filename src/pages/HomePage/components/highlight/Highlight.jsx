@@ -30,7 +30,7 @@ const HighlightInfo = () => {
     },
   ]
   return (
-    <section className="px-4 py-10 bg-gray-900/10">
+    <section className="px-4 py-10 bg-white">
       <div className="grid lg:grid-cols-home-grid gap-4 max-w-app-layout m-auto">
         <div>
           <h5 className="text-lg font-bold text-gray-700 my-4 ">Check Out Offers</h5>
