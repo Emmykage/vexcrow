@@ -28,10 +28,10 @@ const Nav = ({ open, setToggle }) => {
   }, [navRef, closeNav]) // Add `open` as a dependency
 
   return (
-    <div>
+    <div className="w-full">
       <div
         ref={navRef}
-        className={`navslide md:my-0 bg-gray-400 md:bg-transparent fixed md:static h-screen md:h-auto top-0 shadow md:shadow-none rounded transition-all duration-150 ease-linear ${
+        className={`navslide md:my-0  m-auto w-full md:bg-transparent fixed md:static h-screen md:h-auto top-0 shadow md:shadow-none rounded transition-all duration-150 ease-linear ${
           open ? 'left-0' : '-left-full'
         } text-primary z-50 max-w-sm md:max-w-7xl w-full`}
       >
@@ -41,7 +41,7 @@ const Nav = ({ open, setToggle }) => {
           shape="circle"
           icon={<CloseOutlined />}
         />
-        <ul className="flex px-5  md:px-0 py-10 md:py-5 b flex-col md:flex-row hidde gap-5 text-lg font-semibold">
+        <ul className="flex w-full px-5 justify-center bg-gray-900 md:px-0 py-10 md:py-5 b flex-col md:flex-row hidde gap-5 text-lg font-semibold">
           <li to="#" className="font-medium">
             <NavLink className={({ isActive }) => (isActive ? active : inActive)} to={'/'}>
               Home

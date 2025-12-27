@@ -12,25 +12,31 @@ const Home = () => {
   return (
     <div className="-mt-40 md:-mt-40">
       <Header />
-      <section className="h-screen lg:h-[800px] p-4 w-full hero-header">
+      <section className="h-screen lg:h-[900px] relative p-4 w-full hero-header">
         <div className="max-w-app-layout  items-center h-full grid sm:grid-cols-2 m-auto w-full">
           <div className="p-5 mt-10 bg-gray-900/40 rounded-lg">
-            <h2 className="lg:text-5xl text-3xl text-white font-bold">
+            <h2 className="lg:text-6xl text-3xl text-white font-bold">
               Get Awesome experience paying your bills{' '}
             </h2>
-            <p className="lg:text-3xl text-2xl text-gray-300 leading-10  my-6 font-semibold">
+            <p className="text-2xl text-gray-300 leading-10  my-6 font-semibold">
               Top up your mobile data and pay utility bills
             </p>
             <ClassicBtn
               onclick={() => navigate('/login')}
-              className={'text-lg h-14 text-alt font-semibold'}
+              className={
+                'text-base h-14 !text-primary uppercase rounded-3xl !bg-alt font-semibold !hover:text-primary/50 !hover:bg-alt/80'
+              }
             >
               {' '}
               Get Started
             </ClassicBtn>
           </div>
         </div>
+        <svg className="wave" viewBox="0 0 1440 150" preserveAspectRatio="none">
+          <path d="M0,0 C360,100 1080,0 1440,100 L1440,150 L0,150 Z" fill="white" />
+        </svg>
       </section>
+
       <HighlightInfo />
       <PopularCards />
 

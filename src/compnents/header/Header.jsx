@@ -43,7 +43,7 @@ const Header = () => {
         <Carts items={cartItems} />
       </DrawerModal>
 
-      <header className="absolute  bg-primar w-full top-0 z-10 left-0 p-4  px-0 border-b border-gray-700 shadow">
+      <header className="fixed  bg-primar w-full top-0 z-10 left-0 p-4  px-0 border-b border-gray-700 shadow">
         <div className=" max-w-app-layout -700 m-auto px-4">
           <div className="flex gap-3 flex-wrap md:flex-row flex-col justify-between items-center">
             <div className="w-full md:w-max flex items-center gap-4">
@@ -59,8 +59,9 @@ const Header = () => {
               </NavLink>
             </div>
 
-            {/* <SearchField className={"w-full max-w-md flex-"}/> */}
-
+            <div className="max-w-7x flex-1 justify-center flex m-auto">
+              <Nav open={toggleNav} setToggle={setToggle} />
+            </div>
             <div className="flex  items-center gap-4 md:justify-end justify-between w-full md:w-max">
               {/* <NavLink to={"/"} className={`${inActive}  text-center font-semibold text-alt hover:bg-gray-800 hover:text-gray-200  border flex gap-3 py-2 px-4 rounded-3xl`} >
               <QuestionCircleOutlined className={`${inActive} flex text-center`}/>
@@ -151,9 +152,6 @@ const Header = () => {
               )}
               {/* <NavLink to={"/dashboard/home"}>Account</NavLink> */}
             </div>
-          </div>
-          <div className="max-w-7x m-auto">
-            <Nav open={toggleNav} setToggle={setToggle} />
           </div>
         </div>
       </header>

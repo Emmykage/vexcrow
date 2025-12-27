@@ -11,11 +11,11 @@ import {
 } from '../../redux/actions/account'
 import { toast } from 'react-toastify'
 import FormInput from '../formInput/FormInput'
-import ClickButton from '../button/Button'
 import AppButton from '../button/Button'
 import FormSelect from '../formSelect/FormSelect'
 import dayjs from 'dayjs'
 import { SET_LOADING } from '../../redux/app'
+import states from '../../data/states.json'
 const { Step } = Steps
 
 const AccountCreationWizard = ({ formData, setFormData, current, setCurrent, setIsAncorModal }) => {
@@ -76,7 +76,7 @@ const AccountCreationWizard = ({ formData, setFormData, current, setCurrent, set
       .unwrap()
       .then((res) => {
         console.log(res)
-        // setAccountDetails(res?.data)
+        setAccountDetails(res?.data)
         setCurrent((prev) => prev + 1)
         dispatch(getAccounts())
       })
@@ -129,7 +129,12 @@ const AccountCreationWizard = ({ formData, setFormData, current, setCurrent, set
 
           <FormInput label="City" name="city" placeholder="Enter city" />
 
-          <FormInput label="State" name="state" placeholder="Enter state" />
+          <FormSelect
+            options={states.map((state) => ({ label: state, value: state }))}
+            label="State"
+            name="state"
+            placeholder="select state"
+          />
 
           <FormInput label="Postal Code" name="postal_code" placeholder="Enter postal code" />
         </Form>

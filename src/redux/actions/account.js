@@ -285,7 +285,7 @@ export const createCard = createAsyncThunk(
   'account/create-card-account',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl + apiRoute}cards/create_card`, data, {
+      const response = await axios.post(`${baseUrl + apiRoute}card_holders/create_card`, data, {
         headers: {
           Authorization: `Bearer ${fetchToken()}`,
         },
@@ -317,11 +317,15 @@ export const registerCardHolder = createAsyncThunk(
   'account/register-card-holder',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseUrl + apiRoute}cards/register_cardholder`, data, {
-        headers: {
-          Authorization: `Bearer ${fetchToken()}`,
-        },
-      })
+      const response = await axios.post(
+        `${baseUrl + apiRoute}card_holders/register_cardholder`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${fetchToken()}`,
+          },
+        }
+      )
 
       const result = response.data
       toast(result?.message || 'Card Holder has been registered', {
@@ -351,7 +355,157 @@ export const getUserCard = createAsyncThunk(
   'card/GET_USER_CARD',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${baseUrl + apiRoute}cards/user_card`, {
+      const response = await axios.get(`${baseUrl + apiRoute}card_holders/user_card`, {
+        headers: {
+          Authorization: `Bearer ${fetchToken()}`,
+        },
+      })
+
+      const result = response.data
+
+      console.log(result)
+
+      return result
+    } catch (error) {
+      console.log(error)
+
+      if (error.response && error.response.data) {
+        console.log(error.message)
+        toast(error.response.data.message ?? error.message ?? 'SOmething went wrong', {
+          type: 'error',
+        })
+        return rejectWithValue({ message: error.message })
+      }
+      console.error(error)
+      return rejectWithValue({ message: 'Something went wrong' })
+    }
+  }
+)
+
+export const getUserCards = createAsyncThunk(
+  'card/GET_USER_CARDS',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${baseUrl + apiRoute}card_holders/user_cards`, {
+        headers: {
+          Authorization: `Bearer ${fetchToken()}`,
+        },
+      })
+
+      const result = response.data
+
+      console.log(result)
+
+      return result.data?.cards ?? result.data
+    } catch (error) {
+      console.log(error)
+
+      if (error.response && error.response.data) {
+        console.log(error.message)
+        toast(error.response.data.message ?? error.message ?? 'SOmething went wrong', {
+          type: 'error',
+        })
+        return rejectWithValue({ message: error.message })
+      }
+      console.error(error)
+      return rejectWithValue({ message: 'Something went wrong' })
+    }
+  }
+)
+
+export const getRates = createAsyncThunk('card/GET_RATES', async (_, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${baseUrl + apiRoute}card_holders/get_rates`, {
+      headers: {
+        Authorization: `Bearer ${fetchToken()}`,
+      },
+    })
+
+    const result = response.data
+
+    console.log(result)
+
+    return result
+  } catch (error) {
+    console.log(error)
+
+    if (error.response && error.response.data) {
+      console.log(error.message)
+      toast(error.response.data.message ?? error.message ?? 'SOmething went wrong', {
+        type: 'error',
+      })
+      return rejectWithValue({ message: error.message })
+    }
+    console.error(error)
+    return rejectWithValue({ message: 'Something went wrong' })
+  }
+})
+
+export const fundcard = createAsyncThunk('card/FUND_CARD', async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.post(`${baseUrl + apiRoute}card_holders/fund_card`, data, {
+      headers: {
+        Authorization: `Bearer ${fetchToken()}`,
+      },
+    })
+
+    const result = response.data
+
+    console.log(result)
+
+    return result
+  } catch (error) {
+    console.log(error)
+
+    if (error.response && error.response.data) {
+      console.log(error.message)
+      toast(error.response.data.message ?? error.message ?? 'SOmething went wrong', {
+        type: 'error',
+      })
+      return rejectWithValue({ message: error.message })
+    }
+    console.error(error)
+    return rejectWithValue({ message: 'Something went wrong' })
+  }
+})
+
+export const get_card_balance = createAsyncThunk(
+  'card/CARD_BALANCE',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${baseUrl + apiRoute}card_holders/${id}/card_balance`, {
+        headers: {
+          Authorization: `Bearer ${fetchToken()}`,
+        },
+      })
+
+      const result = response.data
+
+      console.log(result)
+
+      return result
+    } catch (error) {
+      console.log(error)
+
+      if (error.response && error.response.data) {
+        console.log(error.message)
+        toast(error.response.data.message ?? error.message ?? 'SOmething went wrong', {
+          type: 'error',
+        })
+        return rejectWithValue({ message: error.message })
+      }
+      console.error(error)
+      return rejectWithValue({ message: 'Something went wrong' })
+    }
+  }
+)
+
+export const freezeAccount = createAsyncThunk(
+  'account/FREEZE_ACCOUNT',
+  async (data, { rejectWithValue }) => {
+    console.log(fetchToken())
+    try {
+      const response = await axios.post(`${baseUrl + apiRoute}accounts/freeze_account`, data, {
         headers: {
           Authorization: `Bearer ${fetchToken()}`,
         },

@@ -314,11 +314,11 @@ const HomeDashboard = () => {
           <h2 className="text-xl font-bold mb-4 text-gray-200">Account Details</h2>
           <div className="space-y-3 text-gray-200">
             <div className="flex gap-4">
-              <span className="font-semibold">Account Name:</span>
+              <span className="font-semibold">Bank Name:</span>
               <span>{accountDetails?.bank_name} </span>
             </div>
             <div className="flex gap-4">
-              <span className="font-semibold">Name:</span>
+              <span className="font-semibold">Account Name:</span>
               <span>{accountDetails?.account_name}</span>
             </div>
             <div className="flex gap-4 justify-between items-center">

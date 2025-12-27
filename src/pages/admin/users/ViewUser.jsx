@@ -20,6 +20,7 @@ import { Button, Form } from 'antd'
 import FormInput from '../../../compnents/formInput/FormInput'
 import { createUserTransaction } from '../../../redux/actions/transaction'
 import { SET_LOADING } from '../../../redux/app'
+import { freezeAccount } from '../../../redux/actions/account'
 
 const ViewUser = () => {
   const { id } = useParams()
@@ -29,9 +30,11 @@ const ViewUser = () => {
   const [selectedId, setSelectedId] = useState(null)
   const [open, setOpen] = useState(false)
   const [openActivate, setOpenActivate] = useState(false)
+  const [selectedAccount, setSelectedAccount] = useState(false)
   const [openAccountModal, setOpenAccountModal] = useState(false)
   const [transactionType, setTransactionType] = useState('deposit')
   const [formLayout] = useState('vertical')
+  const [formData, setFormData] = useState({ freeze_reason: '', freeze_description: '' })
 
   useEffect(() => {
     dispatch(getUser(id))
@@ -103,11 +106,29 @@ const ViewUser = () => {
     })
   }
 
+  console.log(formData)
   const no_items = 10
   const pages = Math.ceil((user?.transactions?.length ?? 1) / no_items)
   const [activePage, setActivePage] = useState(0)
+  const [openAccount, setOpenAccount] = useState(0)
   const fromPos = activePage * no_items
   const toPos = no_items + fromPos
+
+  console.log(selectedAccount, user)
+
+  const handleFreezeAccount = () => {
+    console.log('freezing account')
+
+    dispatch(freezeAccount({ account: { account_id: selectedAccount.useable_id, ...formData } }))
+      .unwrap()
+      .then((res) => {
+        toast(res.message ?? 'Account frozen successfully', { type: 'success' })
+        setOpenAccount(false)
+      })
+      .catch((err) => {
+        toast(err.message ?? 'Failed to freeze account', { type: 'error' })
+      })
+  }
 
   return (
     <>
@@ -163,6 +184,30 @@ const ViewUser = () => {
               {user?.active ? 'Deactivate Account' : 'Activate Account'}
             </ClickButton>
             <ClickButton onClick={() => setOpenAccountModal(true)}>Fund Account</ClickButton>
+          </div>
+
+          <div className="border">
+            {' '}
+            {user?.accounts?.map((account) => (
+              <div key={account.id} className="mb-2 flex justify-between items-center p-4 border-b">
+                <div>
+                  <p className="font-medium capitalize"> {account?.vendor} Account</p>
+                  <p className="font-medium"> {account?.bank_name} </p>
+
+                  <p>{account?.account_number}</p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setSelectedAccount(account)
+                    setOpenAccount(true)
+                  }}
+                  className={'!text-gray-900'}
+                >
+                  Freeze Account
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="overflow-x-auto">
@@ -452,6 +497,47 @@ const ViewUser = () => {
             Decline
           </ClickButton>
           <ClickButton onClick={() => handleOrderUpdate('approved')}>Approve</ClickButton>
+        </div>
+      </AppModal>
+
+      <AppModal
+        handleCancel={() => setOpenAccount(false)}
+        isModalOpen={openAccount}
+        title={'Freeze Account'}
+        className={'white-bg'}
+      >
+        <div>
+          <div className="flex flex-col my-6 justify-between">
+            <div className="w-full mb-2">
+              <select
+                className="py-2 w-full"
+                onChange={(e) => setFormData({ ...formData, freeze_reason: e.target.value })}
+              >
+                <option value="">Select Reason</option>
+                <option value="FRAUD">Fraudulent Activity</option>
+                <option value="BY_CUSTOMER">User Request</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <textarea
+                placeholder="Description"
+                onChange={(e) => setFormData({ ...formData, freeze_description: e.target.value })}
+                className="border p-2 rounded-lg w-full"
+                name=""
+                id=""
+                cols="30"
+                rows="4"
+              ></textarea>
+            </div>
+            <div className="flex justify-between my-4">
+              <ClickButton onClick={() => setOpenAccount(false)} btnType="decline">
+                Cancel
+              </ClickButton>
+              <ClickButton onClick={() => handleFreezeAccount('approved')}>Approve</ClickButton>
+            </div>
+          </div>
         </div>
       </AppModal>
 
