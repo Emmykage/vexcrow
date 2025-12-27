@@ -72,10 +72,10 @@ export default function VirtualCardApplication() {
   useEffect(() => {
     setFormData({
       ...formData,
-      first_name: user.user_profile.first_name,
-      last_name: user.user_profile.last_name,
-      phone: user.user_profile.phone_number,
-      email_address: user.email,
+      first_name: user?.user_profile?.first_name,
+      last_name: user?.user_profile?.last_name,
+      phone: user?.user_profile?.phone_number,
+      email_address: user?.email,
       country: 'Nigeria',
     })
   }, [user])
