@@ -102,7 +102,7 @@ const HowItWorks = () => {
           <img
             alt="Happy users using VexCrow app on mobile devices"
             className="w-full max-w-4xl mx-auto rounded-2xl shadow-2xl"
-            src="https://images.unsplash.com/photo-1687969961103-ba6ece2a186f"
+            src="../images/Mobile-Money-Operators-in-Nigeria.jpeg"
           />
         </motion.div>
       </div>
