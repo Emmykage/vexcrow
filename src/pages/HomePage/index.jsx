@@ -11,7 +11,7 @@ import Features from './components/Features'
 import HowItWorks from './components/HowItWorks'
 import CallToAction from './components/CallToAction'
 import Footer from './components/Footer'
-import { Toaster } from '../../compnents/UI/Toaster'
+import { Toaster } from '../../compnents/UI/toaster'
 const Home = () => {
   const navigate = useNavigate()
 
