@@ -102,13 +102,6 @@ const CryptoExchangePage = lazy(() => import('./pages/cryptoExchangePage'))
 function App() {
   const { isLoading } = useSelector((state) => state.app)
 
-  // useEffect(() => {
-  // const script =   document.createElement('script');
-  // script.src = "https://sdk.monnify.com/plugin/monnify.js"
-  // script.async = true;
-  // document.body.appendChild(script)
-  // }, [])
-
   userInitializeData()
 
   ScrollToTop()
