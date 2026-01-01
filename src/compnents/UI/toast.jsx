@@ -1,4 +1,4 @@
-import { useToast } from './use-toast'
+import { useToast } from './use-toast.js'
 import {
   ToastProvider,
   Toast,
@@ -6,7 +6,7 @@ import {
   ToastDescription,
   ToastTitle,
   ToastViewport,
-} from './toastComponent.jsx'
+} from './toastComponent.jsx.jsx'
 
 export function Toaster() {
   const { toasts } = useToast()
