@@ -18,12 +18,15 @@
     "@mui/icons-material": "^6.1.8",
     "@mui/material": "^6.1.8",
     "@mui/styled-engine-sc": "^6.1.8",
+    "@radix-ui/react-toast": "^1.2.15",
     "@reduxjs/toolkit": "^2.3.0",
     "antd": "^5.22.2",
     "antd-style": "^3.7.1",
     "axios": "^1.7.8",
+    "class-variance-authority": "^0.7.1",
     "dayjs": "^1.11.18",
     "framer-motion": "^12.23.24",
+    "lucide-react": "^0.562.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -37,7 +40,9 @@
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^3.1.0",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "tailwind-merge": "^3.0.2",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

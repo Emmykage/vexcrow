@@ -90,6 +90,7 @@ import ConfirmPayment from './pages/checkout/ConfirmPayment'
 import DashboardPurchaseDetails from './pages/dashboard/PurchaseDetails'
 import DashboardComfirmPurchase from './pages/dashboard/ConfirmPurchase'
 import VirtualCardApplication from './compnents/cardView/CardView'
+import { Toaster } from './compnents/UI/Toaster'
 
 const ViewMobileTopUp = lazy(() => import('./pages/PhoneTopUp/ViewMobileTopUp'))
 const PhoneTopUp = lazy(() => import('./pages/PhoneTopUp'))
@@ -113,6 +114,7 @@ function App() {
   ScrollToTop()
   return (
     <div className="bg-gray-100 ">
+      <Toaster />
       <Suspense fallback={<LoaderPage />}>
         <AppToast />
 

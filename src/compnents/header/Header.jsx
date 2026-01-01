@@ -1,161 +1,99 @@
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-// import SearchField from '../serachField/SearchField'
-import Nav from '../nav/Nav'
-import { MenuUnfoldOutlined, QuestionCircleOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import './style.scss'
-import logo from '../../assets/logos/logo-mod.png'
-import { Badge, Button, Form } from 'antd'
-import { useEffect, useState } from 'react'
-import DrawerModal from '../drawer/Drawer'
-import Carts from '../carts/Carts'
-import { useDispatch, useSelector } from 'react-redux'
-import { GET_CART, SET_LOADING } from '../../redux/app'
-import { userLogin, userLogout } from '../../redux/actions/auth'
-import FormInput from '../formInput/FormInput'
-import ClassicBtn from '../button/ClassicButton'
-import { toast } from 'react-toastify'
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
+import { Button } from '../UI/Button'
+
 const Header = () => {
-  const [toggleNav, setToggle] = useState(false)
-  const { pathname } = useLocation()
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // const inActive = `inactive  ${(pathname !== "/" && pathname !== "/phone-top-up" ) ?  "text-primary" : "text-alt"}`
-  const inActive = `inactive text-alt`
-
-  const navigate = useNavigate()
-
-  const { cartItems } = useSelector((state) => state.app)
-  const [open, setOpen] = useState(false)
-  const [showLogin, setShowLogin] = useState(false)
-  const { user } = useSelector((state) => state.auth)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(GET_CART())
-  }, [])
+  const navItems = [
+    { name: 'Features', href: '#features' },
+    { name: 'How It Works', href: '#how-it-works' },
+    { name: 'About', href: '#about' },
+    { name: 'Contact', href: '#contact' },
+  ]
 
   return (
-    <>
-      <DrawerModal
-        open={open}
-        onClose={() => {
-          setOpen(!open)
-        }}
-      >
-        <Carts items={cartItems} />
-      </DrawerModal>
-
-      <header className="fixed  bg-primar w-full top-0 z-10 left-0 p-4  px-0 border-b border-gray-700 shadow">
-        <div className=" max-w-app-layout -700 m-auto px-4">
-          <div className="flex gap-3 flex-wrap md:flex-row flex-col justify-between items-center">
-            <div className="w-full md:w-max flex items-center gap-4">
-              <Button
-                onClick={() => setToggle((prev) => !prev)}
-                className="md:hidden nav-btn"
-                shape="circle"
-                icon={<MenuUnfoldOutlined />}
-              />
-
-              <NavLink to={'/'} className={'text-3xl font-semibold'}>
-                <img src={logo} alt="logo" className="h-14 w- object-cover border" />
-              </NavLink>
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-2"
+          >
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-emerald-500 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xl">V</span>
             </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-emerald-500 bg-clip-text text-transparent">
+              VexCrow
+            </span>
+          </motion.div>
 
-            <div className="max-w-7x flex-1 justify-center flex m-auto">
-              <Nav open={toggleNav} setToggle={setToggle} />
-            </div>
-            <div className="flex  items-center gap-4 md:justify-end justify-between w-full md:w-max">
-              {/* <NavLink to={"/"} className={`${inActive}  text-center font-semibold text-alt hover:bg-gray-800 hover:text-gray-200  border flex gap-3 py-2 px-4 rounded-3xl`} >
-              <QuestionCircleOutlined className={`${inActive} flex text-center`}/>
-              Help
-            </NavLink> */}
-              <a
-                href={'/#app'}
-                className={`${inActive}  text-center font-semibold text-alt hover:bg-gray-800 hover:text-gray-200  border flex gap-3 py-2 px-4 rounded-3xl`}
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item, index) => (
+              <motion.a
+                key={item.name}
+                href={item.href}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-slate-700 hover:text-blue-600 transition-colors font-medium"
               >
-                <QuestionCircleOutlined className={`${inActive} flex text-center`} />
-                Get App
-              </a>
-              <Badge className="badge" count={cartItems.length} showZero>
-                <Button
-                  className="bg-none"
-                  onClick={() => setOpen(true)}
-                  type="default"
-                  shape="circle"
-                  icon={<ShoppingCartOutlined className={`${inActive}`} />}
-                  size="middle"
-                />
-              </Badge>
-              {user ? (
-                <NavLink
-                  onClick={() => dispatch(userLogout())}
-                  to={'/'}
-                  className={`${inActive} block text-center`}
-                >
-                  Log Out
-                </NavLink>
-              ) : (
-                // <NavLink to={"/login"} className={"font-semibold"}>Login</NavLink>
-                <div className="relative z-10 ">
-                  <button
-                    onClick={() => setShowLogin((prev) => !prev)}
-                    to={'/login'}
-                    className={`${inActive} block text-center`}
-                  >
-                    Login
-                  </button>
-                  <div
-                    className={`${showLogin ? 'block' : 'hidden'} absolute  py-4 w-60 group-hover:block right-0`}
-                  >
-                    <div className="p-2 z-50 bg-gray-900 border border-primary rounded-lg">
-                      <Form
-                        initialValues={{
-                          email: '',
-                          password: '',
-                        }}
-                        onFinish={(values) => {
-                          dispatch(SET_LOADING(true))
-
-                          dispatch(userLogin({ user: values })).then((result) => {
-                            if (userLogin.fulfilled.match(result)) {
-                              dispatch(SET_LOADING(false))
-                              console.log(result.payload.message)
-                              navigate('/dashboard/home')
-                              setShowLogin(false)
-                            } else if (userLogin.rejected.match(result)) {
-                              dispatch(SET_LOADING(false))
-                            }
-                          })
-                        }}
-                      >
-                        <FormInput name={'email'} placeholder={'Email'} />
-                        <FormInput type="password" name={'password'} placeholder={'**********'} />
-                        <ClassicBtn htmlType={'submit'} className={'w-full'}>
-                          Sign In
-                        </ClassicBtn>
-                        <NavLink
-                          to={'/send-confirmation'}
-                          className="btn text-center block text-alt"
-                        >
-                          Confirm Account
-                        </NavLink>
-                      </Form>
-                      <NavLink to={'/signup'} className={`${inActive} block text-center`}>
-                        Sign up
-                      </NavLink>
-                    </div>
-                  </div>
-                </div>
-              )}
-              {user && (
-                <NavLink to={'/dashboard/home'} className={`${inActive} block text-center`}>
-                  Account
-                </NavLink>
-              )}
-              {/* <NavLink to={"/dashboard/home"}>Account</NavLink> */}
-            </div>
+                {item.name}
+              </motion.a>
+            ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="hidden md:flex items-center gap-4"
+          >
+            <Button variant="ghost" className="text-slate-700 hover:text-blue-600">
+              Login
+            </Button>
+            <Button className="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white">
+              Get Started
+            </Button>
+          </motion.div>
+
+          <button className="md:hidden text-slate-700" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-      </header>
-    </>
+
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden mt-4 pb-4 border-t border-slate-200 pt-4"
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="block py-2 text-slate-700 hover:text-blue-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
+            <div className="flex flex-col gap-2 mt-4">
+              <Button variant="outline" className="w-full">
+                Login
+              </Button>
+              <Button className="w-full bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white">
+                Get Started
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </nav>
+    </header>
   )
 }
 
